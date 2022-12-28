@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class DataScriptableObject : ScriptableObject
 {
+	public virtual bool alwaysEnableFoldout {get;}
 	public bool foldedOut {get; set;}
 
 	public static bool IsComponentNull(ScriptableObject stackObject, DataScriptableObject dataScriptableObject)

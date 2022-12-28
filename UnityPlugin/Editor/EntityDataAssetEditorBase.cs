@@ -53,7 +53,7 @@ public abstract class EntityDataAssetEditorBase<T1, T2> : Editor
 							if (entityDataAsset.components[i] != null)
 							{
 								var iterator = editor.serializedObject.GetIterator();
-								if (iterator.CountRemaining() > 1)
+								if (entityDataAsset.components[i].alwaysEnableFoldout || iterator.CountRemaining() > 1)
 								{
 									canBeFoldedOut = true;
 
