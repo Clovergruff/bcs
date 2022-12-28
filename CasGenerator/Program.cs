@@ -1,4 +1,6 @@
 ﻿
+using System.IO;
+
 class Program
 {
 	public static string entityName = "";
@@ -18,13 +20,15 @@ class Program
 	public static bool componentMode = true;
 
 	#if OS_WINDOWS
-		public static string sl = "\\";
+		public const string sl = "\\";
 	#else
-		public static string sl = "/";
+		public const string sl = "/";
 	#endif
 
-	public static string assetsPath = $"..{sl}Assets";
-	public static string entitiesFolder = $"{assetsPath}{sl}Scripts{sl}Entities";
+	public const string ASSETS_FOLDER = "Assets";
+	public const string UP_ASSETS_FOLDER = $"..{sl}Assets";
+	public static string assetsPath = "";
+	public static string entitiesFolder = "";
 
 	static void Main(string[] args)
 	{
@@ -35,6 +39,18 @@ class Program
 		}
 		else
 		{
+			if (Directory.Exists(ASSETS_FOLDER))
+				assetsPath = ASSETS_FOLDER;
+			else if (Directory.Exists(UP_ASSETS_FOLDER))
+				assetsPath = UP_ASSETS_FOLDER;
+			else
+			{
+				Debug.LogError("Could not find the Assets folder");
+				return;
+			}
+
+			entitiesFolder = $"{assetsPath}{sl}Scripts{sl}Entities";
+
 			entityName = args[0];
 			entityName = entityName.FirstCharToUpper();
 
