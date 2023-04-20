@@ -11,7 +11,7 @@ public class UnitySystemBaseClass : UnityClass
 
 		AddLine($"public interface I{entity}System");
 		AddLine("{");
-		AddLine($"	void LateSetup({entity} {lowerCaseEntityName});");
+		AddLine($"	void LateSetup();");
 		if (hasUpdate)
 			AddLine("	void OnUpdate();");
 		if (hasFixedUpdate)
@@ -29,17 +29,14 @@ public class UnitySystemBaseClass : UnityClass
 		AddLine("");
 		AddLine("	public T Config { get => config; }");
 		AddLine("");
-		AddLine("	public virtual void Init(T config)");
+		AddLine($"	public virtual void Init({entity} {lowerCaseEntityName}, T config)");
 		AddLine("	{");
 		AddLine("		this.config = config;");
+		AddLine($"		this.{lowerCaseEntityName} = {lowerCaseEntityName};");
 		AddLine("	}");
 		AddLine("");
 		AddLine("	public virtual void Init() { }");
-		AddLine("");
-		AddLine($"	public virtual void LateSetup({entity} {lowerCaseEntityName})");
-		AddLine("	{");
-		AddLine($"		this.{lowerCaseEntityName} = {lowerCaseEntityName};");
-		AddLine("	}");
+		AddLine("	public virtual void LateSetup() { }");
 		AddLine("");
 		if (hasUpdate)
 			AddLine("	public virtual void OnUpdate() {}");

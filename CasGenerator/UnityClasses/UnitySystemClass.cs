@@ -14,9 +14,9 @@ public class UnitySystemClass : UnityClass
 		{
 			AddLine($"public class {entity}{component}System : {entity}System<{entity}{component}Config>");
 			AddLine("{");
-			AddLine($"	public override void Init({entity}{component}Config config)");
+			AddLine($"	public override void Init({entity} {lowerCaseEntityName}, {entity}{component}Config config)");
 			AddLine("	{");
-			AddLine("		base.Init(config);");
+			AddLine($"		base.Init({lowerCaseEntityName}, config);");
 			AddLine("	}");
 			AddLine("}");
 		}

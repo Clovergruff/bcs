@@ -40,7 +40,7 @@ public class UnityExtensionClass : UnityClass
 		if (generateConfig)
 		{
 			AddLine($"		{configVariable} = config;");
-			AddLine($"		{systemVariable}.Init(config);");
+			AddLine($"		{systemVariable}.Init(this, config);");
 		}
 		else
 		{
