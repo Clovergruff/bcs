@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EntityDataAsset<T> : ScriptableObject
+public abstract class EntityConfigAsset<T> : ScriptableObject
 {
 	public bool foldedOut {get; set;} = true;
 

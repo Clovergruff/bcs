@@ -1,6 +1,6 @@
-public class UnityEntityDataEditorClass : UnityClass
+public class UnityEntityConfigEditorClass : UnityClass
 {
-	public UnityEntityDataEditorClass(string filePath) : base(filePath)
+	public UnityEntityConfigEditorClass(string filePath) : base(filePath)
 	{
 	}
 
@@ -8,8 +8,8 @@ public class UnityEntityDataEditorClass : UnityClass
 	{
 		AddLine("using UnityEditor;");
 		AddLine("");
-		AddLine($"[CustomEditor(typeof({entity}Data))]");
-		AddLine($"public class {entity}DataEditor : EntityDataAssetEditorBase<{entity}ComponentConfig, {entity}Data>");
+		AddLine($"[CustomEditor(typeof({entity}Config))]");
+		AddLine($"public class {entity}ConfigEditor : EntityConfigAssetEditorBase<{entity}ComponentConfig, {entity}Config>");
 		AddLine("{");
 		AddLine("	private SerializedProperty prefabProperty;");
 		AddLine("");
@@ -31,7 +31,7 @@ public class UnityEntityDataEditorClass : UnityClass
 		AddLine("");
 		AddLine("			if (check.changed)");
 		AddLine("			{");
-		AddLine("				EditorUtility.SetDirty(entityDataAsset);");
+		AddLine("				EditorUtility.SetDirty(entityConfigAsset);");
 		AddLine("				serializedObject.ApplyModifiedProperties();");
 		AddLine("			}");
 		AddLine("		}");

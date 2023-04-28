@@ -25,8 +25,8 @@ public static class Generator
 	public static void CreateMainEntityClass(string filePath, string entity, bool hasUpdate, bool hasFixedUpdate, bool hasLateUpdate) =>
 		new UnityEntityClass(filePath).Generate(entity: entity, hasUpdate: hasUpdate, hasFixedUpdate: hasFixedUpdate, hasLateUpdate: hasLateUpdate);
 
-	public static void CreateEntityDataEditorClass(string filePath, string entity) =>
-		new UnityEntityDataEditorClass(filePath).Generate(entity: entity);
+	public static void CreateEntityConfigEditorClass(string filePath, string entity) =>
+		new UnityEntityConfigEditorClass(filePath).Generate(entity: entity);
 
 	public static void CreateComponentConfigClass(string filePath, string entity) =>
 		new UnityComponentConfigClass(filePath).Generate(entity: entity);
@@ -34,8 +34,8 @@ public static class Generator
 	public static void CreateComponentConfigEditorClass(string filePath, string entity, string component) =>
 		new UnityComponentConfigEditorClass(filePath).Generate(entity: entity, component: component);
 
-	public static void CreateEntityDataClass(string filePath, string entity) =>
-		new UnityEntityDataClass(filePath).Generate(entity: entity);
+	public static void CreateEntityConfigClass(string filePath, string entity) =>
+		new UnityEntityConfigClass(filePath).Generate(entity: entity);
 
 	public static void CreateEntityManagerClass(string filePath, string entity) =>
 		new UnityEntityManagerClass(filePath).Generate(entity: entity);

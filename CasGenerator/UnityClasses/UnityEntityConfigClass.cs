@@ -1,6 +1,6 @@
-public class UnityEntityDataClass : UnityClass
+public class UnityEntityConfigClass : UnityClass
 {
-	public UnityEntityDataClass(string filePath) : base(filePath)
+	public UnityEntityConfigClass(string filePath) : base(filePath)
 	{
 	}
 
@@ -10,7 +10,7 @@ public class UnityEntityDataClass : UnityClass
 		AddLine("");
 
 		AddLine($"[CreateAssetMenu(fileName = \"{entity}\", menuName = \"Data/{entity}/{entity} entity\")]");
-		AddLine($"public class {entity}Data : EntityDataAsset<{entity}ComponentConfig>");
+		AddLine($"public class {entity}Config : EntityConfigAsset<{entity}ComponentConfig>");
 		AddLine("{");
 		AddLine($"	public Optional<{entity}> prefab;");
 		AddLine("}");

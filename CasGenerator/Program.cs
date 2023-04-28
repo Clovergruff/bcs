@@ -169,12 +169,12 @@ class Program
 
 		string mainClassPath = 				$"{entityBase}.cs";
 		string baseComponentConfigPath = 	$"{entityBase}ComponentConfig.cs";
-		string entityDataClassPath = 		$"{entityBase}Data.cs";
+		string entityConfigClassPath = 		$"{entityBase}Config.cs";
 		string managerClassPath = 			$"{entityBase}EntityManager.cs";
 		string factoryClassPath = 			$"{entityBase}Factory.cs";
 		string baseSystemClassPath = 		$"{entityBase}System.cs";
 
-		string entityDataEditorClassPath = 	$"{editorFolderPath}{sl}{entityName}DataEditor.cs";
+		string entityConfigEditorClassPath = 	$"{editorFolderPath}{sl}{entityName}ConfigEditor.cs";
 
 		if (!Directory.Exists(componentsFolderPath))
 			Directory.CreateDirectory(componentsFolderPath);
@@ -184,11 +184,11 @@ class Program
 
 		Generator.CreateMainEntityClass(mainClassPath, entityName, generateUpdateMethods, generateFixedUpdateMethods, generateLateUpdateMethods);
 		Generator.CreateComponentConfigClass(baseComponentConfigPath, entityName);
-		Generator.CreateEntityDataClass(entityDataClassPath, entityName);
+		Generator.CreateEntityConfigClass(entityConfigClassPath, entityName);
 		Generator.CreateEntityManagerClass(managerClassPath, entityName);
 		Generator.CreateEntityFactoryClass(factoryClassPath, entityName);
 		Generator.CreateSystemBaseClass(baseSystemClassPath, entityName, generateUpdateMethods, generateFixedUpdateMethods, generateLateUpdateMethods);
-		Generator.CreateEntityDataEditorClass(entityDataEditorClassPath, entityName);
+		Generator.CreateEntityConfigEditorClass(entityConfigEditorClassPath, entityName);
 
 		Debug.Log("Done!\n");
 	}

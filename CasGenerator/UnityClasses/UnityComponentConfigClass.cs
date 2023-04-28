@@ -6,7 +6,7 @@ public class UnityComponentConfigClass : UnityClass
 
 	protected override void GenerateLines()
 	{
-		AddLine($"public abstract class {entity}ComponentConfig : DataScriptableObject");
+		AddLine($"public abstract class {entity}ComponentConfig : ConfigScriptableObject");
 		AddLine("{");
 		AddLine($"	public abstract void ConstructSystemComponent({entity} {entity.FirstCharToLower()});");
 		AddLine("}");

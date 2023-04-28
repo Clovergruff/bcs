@@ -25,7 +25,7 @@ public class UnityComponentConfigEditorClass : UnityClass
 		AddLine("			");
 		AddLine("			if (check.changed)");
 		AddLine("			{");
-		AddLine("				EditorUtility.SetDirty(data);");
+		AddLine("				EditorUtility.SetDirty(config);");
 		AddLine("				serializedObject.ApplyModifiedProperties();");
 		AddLine("			}");
 		AddLine("		}");

@@ -1,14 +1,14 @@
 using UnityEditor;
 
 public class EntityComponentEditorBase<T> : Editor
-	where T : DataScriptableObject
+	where T : ConfigScriptableObject
 {
-	protected T data;
+	protected T config;
 
 	protected virtual void OnEnable()
 	{
 		if (target != null)
-			data = (T)target;
+			config = (T)target;
 	}
 
 	public override void OnInspectorGUI()
@@ -19,7 +19,7 @@ public class EntityComponentEditorBase<T> : Editor
 
 			if (check.changed)
 			{
-				EditorUtility.SetDirty(data);
+				EditorUtility.SetDirty(config);
 				serializedObject.ApplyModifiedProperties();
 			}
 		}

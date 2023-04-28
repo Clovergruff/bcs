@@ -18,15 +18,15 @@ public class UnityEntityClass : UnityClass
 		if (hasLateUpdate)
 			AddLine("	, IEntityLateUpdate");
 		AddLine("{");
-		AddLine($"	[SerializeField] private {entity}Data data;");
+		AddLine($"	[SerializeField] private {entity}Config config;");
 		AddLine($"	private I{entity}System[] systems;");
 		AddLine("");
-		AddLine($"	public {entity}Data Data {"{ get => data; }"}");
+		AddLine($"	public {entity}Config Config {"{ get => config; }"}");
 		AddLine($"	public I{entity}System[] Systems {"{ get => systems; }"}");
 		AddLine("");
-		AddLine($"	public void Init({entity}Data data)");
+		AddLine($"	public void Init({entity}Config config)");
 		AddLine("	{");
-		AddLine("		this.data = data;");
+		AddLine("		this.config = config;");
 		AddLine("	}");
 		AddLine("");
 		AddLine($"	public I{entity}System[] FindSystems() => systems = gameObject.GetComponents<I{entity}System>();");

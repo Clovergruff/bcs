@@ -4,21 +4,21 @@ using UnityEngine;
 using UnityEditor;
 using System;
 
-public abstract class EntityDataAssetEditorBase<T1, T2> : Editor
-	where T1 : DataScriptableObject
-	where T2 : EntityDataAsset<T1>
+public abstract class EntityConfigAssetEditorBase<T1, T2> : Editor
+	where T1 : ConfigScriptableObject
+	where T2 : EntityConfigAsset<T1>
 {
 	private const int FOLDOUT_WIDTH = 13;
 
-	protected T2 entityDataAsset;
+	protected T2 entityConfigAsset;
 	protected GUIStyle iconButtonStyle = new GUIStyle();
 	protected GUIStyle componentListStyle = new GUIStyle();
 
-	public EntityDataEditorInstance editorInstance;
+	public EntityConfigEditorInstance editorInstance;
 
 	protected virtual void OnEnable()
 	{
-		entityDataAsset = (T2)target;
+		entityConfigAsset = (T2)target;
 
 		iconButtonStyle.normal.background = null;
 		iconButtonStyle.active.background = null;
@@ -32,9 +32,9 @@ public abstract class EntityDataAssetEditorBase<T1, T2> : Editor
 		float oneLineHeight = EditorGUIUtility.singleLineHeight;
 		int editorCount = editorInstance.editors.Length;
 
-		entityDataAsset.foldedOut = EditorExt.FoldoutHeader("Components", entityDataAsset.foldedOut);
+		entityConfigAsset.foldedOut = EditorExt.FoldoutHeader("Components", entityConfigAsset.foldedOut);
 
-		if (entityDataAsset.foldedOut)
+		if (entityConfigAsset.foldedOut)
 		{
 			EditorExt.BeginBoxGroup();
 				for (int i = 0; i < editorCount; i++)
@@ -50,22 +50,22 @@ public abstract class EntityDataAssetEditorBase<T1, T2> : Editor
 							bool canBeFoldedOut = false;
 							EditorGUI.indentLevel = 0;
 
-							if (entityDataAsset.components[i] != null)
+							if (entityConfigAsset.components[i] != null)
 							{
 								var iterator = editor.serializedObject.GetIterator();
-								if (entityDataAsset.components[i].alwaysEnableFoldout || iterator.CountRemaining() > 1)
+								if (entityConfigAsset.components[i].alwaysEnableFoldout || iterator.CountRemaining() > 1)
 								{
 									canBeFoldedOut = true;
 
-									if (!entityDataAsset.components[i].foldedOut)
+									if (!entityConfigAsset.components[i].foldedOut)
 									{
 										EditorGUI.BeginDisabledGroup(false);
-											entityDataAsset.components[i].foldedOut = EditorGUILayout.Toggle(entityDataAsset.components[i].foldedOut, EditorStyles.foldout, GUILayout.Width(FOLDOUT_WIDTH));
+											entityConfigAsset.components[i].foldedOut = EditorGUILayout.Toggle(entityConfigAsset.components[i].foldedOut, EditorStyles.foldout, GUILayout.Width(FOLDOUT_WIDTH));
 										EditorGUI.EndDisabledGroup();
 									}
 									else
 									{
-										entityDataAsset.components[i].foldedOut = EditorGUILayout.Toggle(entityDataAsset.components[i].foldedOut, EditorStyles.foldout, GUILayout.Width(FOLDOUT_WIDTH));
+										entityConfigAsset.components[i].foldedOut = EditorGUILayout.Toggle(entityConfigAsset.components[i].foldedOut, EditorStyles.foldout, GUILayout.Width(FOLDOUT_WIDTH));
 									}
 								}
 							}
@@ -73,11 +73,11 @@ public abstract class EntityDataAssetEditorBase<T1, T2> : Editor
 							if (!canBeFoldedOut)
 								GUILayout.Space(FOLDOUT_WIDTH + 3);						
 
-							entityDataAsset.components[i] = (T1)EditorGUILayout.ObjectField(entityDataAsset.components[i], typeof(T1), false);
+							entityConfigAsset.components[i] = (T1)EditorGUILayout.ObjectField(entityConfigAsset.components[i], typeof(T1), false);
 
 							if (GUILayout.Button("-", GUILayout.Width(oneLineHeight), GUILayout.Height(oneLineHeight)))
 							{
-								entityDataAsset.components.RemoveAt(i);
+								entityConfigAsset.components.RemoveAt(i);
 								RegenerateEditors();
 								return;
 							}
@@ -94,7 +94,7 @@ public abstract class EntityDataAssetEditorBase<T1, T2> : Editor
 						}
 
 						// Component Editor
-						if (entityDataAsset.components[i] != null && entityDataAsset.components[i].foldedOut)
+						if (entityConfigAsset.components[i] != null && entityConfigAsset.components[i].foldedOut)
 						{
 							EditorExt.BeginBoxGroup();
 							EditorGUI.indentLevel++;
@@ -118,7 +118,7 @@ public abstract class EntityDataAssetEditorBase<T1, T2> : Editor
 					GUILayout.FlexibleSpace();
 						if (GUILayout.Button("Add Component", GUILayout.Width(200), GUILayout.Height(oneLineHeight + 6)))
 						{
-							entityDataAsset.components.Add(null);
+							entityConfigAsset.components.Add(null);
 							ApplyChanges();
 							RegenerateEditors();
 						}
@@ -148,9 +148,9 @@ public abstract class EntityDataAssetEditorBase<T1, T2> : Editor
 					object obj = DragAndDrop.objectReferences[i];
 					string path = DragAndDrop.paths[i];
 
-					if (obj is T1 dataAsset)
+					if (obj is T1 configAsset)
 					{
-						entityDataAsset.components.Add(dataAsset);
+						entityConfigAsset.components.Add(configAsset);
 						ApplyChanges();
 						componentsUpdated = true;
 					}
@@ -164,24 +164,24 @@ public abstract class EntityDataAssetEditorBase<T1, T2> : Editor
 
 	private void ApplyChanges()
 	{
-		EditorUtility.SetDirty(entityDataAsset);
+		EditorUtility.SetDirty(entityConfigAsset);
 		serializedObject.ApplyModifiedProperties();
 	}
 
 
 	private void RegenerateEditors()
 	{
-		editorInstance = (EntityDataEditorInstance)ScriptableObject.CreateInstance(typeof(EntityDataEditorInstance));
+		editorInstance = (EntityConfigEditorInstance)ScriptableObject.CreateInstance(typeof(EntityConfigEditorInstance));
 
-		int editorCount = entityDataAsset.components.Count;
+		int editorCount = entityConfigAsset.components.Count;
 		editorInstance.editors = new Editor[editorCount];
 
 		for (int i = 0; i < editorCount; i++)
 		{
-			if (entityDataAsset.components[i] == null)
+			if (entityConfigAsset.components[i] == null)
 				continue;
 
-			editorInstance.editors[i] = Editor.CreateEditor(entityDataAsset.components[i]);
+			editorInstance.editors[i] = Editor.CreateEditor(entityConfigAsset.components[i]);
 		}
 	}
 }
