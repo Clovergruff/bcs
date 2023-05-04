@@ -10,6 +10,7 @@ public class UnitySystemClass : UnityClass
 		AddLine("using System.Collections;");
 		AddLine("");
 
+		AddLine($"[AddComponentMenu(\"{entity}/{component}\")]");
 		if (generateConfig)
 		{
 			AddLine($"public class {entity}{component}System : {entity}System<{entity}{component}Config>");

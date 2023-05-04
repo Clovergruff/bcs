@@ -9,6 +9,7 @@ public class UnityEntityClass : UnityClass
 		AddLine("using UnityEngine;");
 		AddLine("");
 
+		AddLine($"[AddComponentMenu(\"{entity}/{entity}\")]");
 		AddLine($"public partial class {entity} : MonoBehaviour");
 		AddLine("	, IEntity");
 		if (hasUpdate)
