@@ -1,10 +1,11 @@
-CAS - Basic Components an Systems for Unity
+BCS - Basic Components an Systems for Unity
 ===========================================
 
 
-CAS is a basic Components and Systems framework, built specifically for Unity. *Please note that this is not an ECS framework* and does not provide the same benefits. CAS is built for handling entities that require various different configurations, such as characters with different stats and physical abilities or weapons with various damage types, etc.
+BCS is a basic Components and Systems framework, built specifically for Unity. I built this tool for my personal projects, and as such use this with caution, as I made it with my needs in mind.
+*Please note that this is not an ECS framework* and does not provide the same benefits. BCS is built for handling entities that require various different configurations, such as characters with different stats and physical abilities or weapons with various damage types, etc.
 
-CAS code generator generates various script files for specific entity types (e.g. Characters, Items, Trees, etc.) and component scripts that can be attached to those specific entity types (e.g. Health for Characters, value for Items, etc.). These scripts include scriptable objects and editor classes which then allow to construct a specific type of entity insdie of the Unity Editor.
+BCS code generator generates various script files for user specified entity types (e.g. Characters, Items, Trees, etc.) and component scripts that can be attached to those specific entity types (e.g. Health for Characters, value for Items, etc.). These scripts include scriptable objects and editor classes which then allow to construct a specific type of entity insdie of the Unity Editor.
 
 A factory class is also generated for each of the entities to allow an easy way to instantiate said entities as GameObjects by passing in their scriptable objects.
 
@@ -14,21 +15,21 @@ A factory class is also generated for each of the entities to allow an easy way 
 Generating Entities and Components
 ==================================
 
-To generate an entity, place the CAS binary folder inside of the Unity project, and run CAS with the name of an entity as an option:
+To generate an entity, place the BCS binary folder inside of the Unity project, and run BCS with the name of an entity as an option:
 ```console
-./cas [New Entity Name]
+./bcs [New Entity Name]
 ```
 
-To generate one or more components and run CAS with the following options. Note that You have to specify which entity You want the components to be generated for:
+To generate one or more components and run BCS with the following options. Note that You have to specify which entity You want the components to be generated for:
 ```console
-./cas [Entity Name] [Component 1] [Component 2] [Component 3] [...]
+./bcs [Entity Name] [Component 1] [Component 2] [Component 3] [...]
 ```
 
 Usage in Unity
 ==============
 Lets try to create an `Animal` entity with an `Alive` component. There are also some extra options that can be used, such as `-p` or `--prefix`, which allows to set up a custom prefix for the component (The default is `has`). The `-f` and `--force` options allow to overwrite existing classes, otherwise the code generator will skip them. The following code will generate an `Animal` entity with an `Alive` component.
 ```console
-./cas Animal Alive -p is -f
+./bcs Animal Alive -p is -f
 ```
 The previously mentioned setup allows to check if an `Animal` object has the `Alive` component attached to it by using the following code. Notice how an `isAlive` boolean has been generated.
 ```csharp
