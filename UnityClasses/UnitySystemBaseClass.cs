@@ -9,20 +9,9 @@ public class UnitySystemBaseClass : UnityClass
 		AddLine("using UnityEngine;");
 		AddLine("");
 
-		AddLine($"public interface I{entity}System");
-		AddLine("{");
-		AddLine($"	void LateSetup();");
-		if (hasUpdate)
-			AddLine("	void OnUpdate();");
-		if (hasFixedUpdate)
-			AddLine("	void OnFixedUpdate();");
-		if (hasLateUpdate)
-			AddLine("	void OnLateUpdate();");
-		AddLine("}");
-		AddLine("");
-		AddLine($"public class {entity}System<T> : MonoBehaviour, I{entity}System");
+		AddLine($"public class {entity}System<T> : MonoBehaviour, IEntitySystem");
 		AddLine($"	where T : {entity}ComponentConfig");
-		AddLine("{");/*  */
+		AddLine("{");
 		AddLine($"	public {entity} {lowerCaseEntityName} {"{ get; private set; }"}");
 		AddLine("");
 		AddLine("	[SerializeField] protected T config;");
@@ -37,13 +26,6 @@ public class UnitySystemBaseClass : UnityClass
 		AddLine("");
 		AddLine("	public virtual void Init() { }");
 		AddLine("	public virtual void LateSetup() { }");
-		AddLine("");
-		if (hasUpdate)
-			AddLine("	public virtual void OnUpdate() {}");
-		if (hasFixedUpdate)
-			AddLine("	public virtual void OnFixedUpdate() {}");
-		if (hasLateUpdate)
-			AddLine("	public virtual void OnLateUpdate() {}");
 		AddLine("	public virtual void Remove() {}");
 		AddLine("}");
 	}

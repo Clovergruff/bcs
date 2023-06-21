@@ -42,9 +42,9 @@ public class UnityEntityFactoryClass : UnityClass
 		AddLine($"			componentConfig.ConstructSystemComponent({lowerCaseEntityName});");
 		AddLine("		}");
 		AddLine("");
-		AddLine($"		var systems = {lowerCaseEntityName}.FindSystems();");
+		AddLine($"		{lowerCaseEntityName}.FindSystems();");
 		AddLine("");
-		AddLine("		foreach (var system in systems)");
+		AddLine($"		foreach (var system in {lowerCaseEntityName}.allSystems)");
 		AddLine($"			system.LateSetup();");
 		AddLine("");
 		AddLine($"		{lowerCaseEntityName}.Init(config);");

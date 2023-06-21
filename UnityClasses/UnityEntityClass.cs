@@ -19,18 +19,24 @@ public class UnityEntityClass : UnityClass
 		if (hasLateUpdate)
 			AddLine("	, IEntityLateUpdate");
 		AddLine("{");
-		AddLine($"	[SerializeField] private {entity}Config config;");
-		AddLine($"	private I{entity}System[] systems;");
-		AddLine("");
-		AddLine($"	public {entity}Config Config {"{ get => config; }"}");
-		AddLine($"	public I{entity}System[] Systems {"{ get => systems; }"}");
+		AddLine($"	public {entity}Config config;");
+		AddLine($"	public IEntitySystem[] allSystems;");
+		AddLine($"	public ISystemUpdate[] updateSystems;");
+		AddLine($"	public ISystemLateUpdate[] lateUpdateSystems;");
+		AddLine($"	public ISystemFixedUpdate[] fixedUpdateSystems;");
 		AddLine("");
 		AddLine($"	public void Init({entity}Config config)");
 		AddLine("	{");
 		AddLine("		this.config = config;");
 		AddLine("	}");
 		AddLine("");
-		AddLine($"	public I{entity}System[] FindSystems() => systems = gameObject.GetComponents<I{entity}System>();");
+		AddLine($"	public void FindSystems()");
+		AddLine("	{");
+		AddLine($"		allSystems = gameObject.GetComponents<IEntitySystem>();");
+		AddLine("		updateSystems = gameObject.GetComponents<ISystemUpdate>();");
+		AddLine("		lateUpdateSystems = gameObject.GetComponents<ISystemLateUpdate>();");
+		AddLine("		fixedUpdateSystems = gameObject.GetComponents<ISystemFixedUpdate>();");
+		AddLine("	}");
 		AddLine("");
 		AddLine($"	protected virtual void Awake() => {entity}EntityManager.I.AddEntity(this);");
 		AddLine($"	protected virtual void OnEnable() => {entity}EntityManager.I.EnableEntity(this);");
@@ -41,8 +47,8 @@ public class UnityEntityClass : UnityClass
 			AddLine("");
 			AddLine("	public void OnUpdate()");
 			AddLine("	{");
-			AddLine("		for (int i = 0; i < systems.Length; i++)");
-			AddLine("			systems[i].OnUpdate();");
+			AddLine("		for (int i = 0; i < updateSystems.Length; i++)");
+			AddLine("			updateSystems[i].OnUpdate();");
 			AddLine("	}");
 		}
 
@@ -51,8 +57,8 @@ public class UnityEntityClass : UnityClass
 			AddLine("");
 			AddLine("	public void OnLateUpdate()");
 			AddLine("	{");
-			AddLine("		for (int i = 0; i < systems.Length; i++)");
-			AddLine("			systems[i].OnLateUpdate();");
+			AddLine("		for (int i = 0; i < lateUpdateSystems.Length; i++)");
+			AddLine("			lateUpdateSystems[i].OnLateUpdate();");
 			AddLine("	}");
 		}
 
@@ -61,8 +67,8 @@ public class UnityEntityClass : UnityClass
 			AddLine("");
 			AddLine("	public void OnFixedUpdate()");
 			AddLine("	{");
-			AddLine("		for (int i = 0; i < systems.Length; i++)");
-			AddLine("			systems[i].OnFixedUpdate();");
+			AddLine("		for (int i = 0; i < fixedUpdateSystems.Length; i++)");
+			AddLine("			fixedUpdateSystems[i].OnFixedUpdate();");
 			AddLine("	}");
 		}
 		
