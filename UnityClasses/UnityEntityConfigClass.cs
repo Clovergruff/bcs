@@ -12,7 +12,6 @@ public class UnityEntityConfigClass : UnityClass
 		AddLine($"[CreateAssetMenu(fileName = \"{entity}\", menuName = \"Data/{entity}/{entity} entity\")]");
 		AddLine($"public class {entity}Config : EntityConfigAsset<{entity}ComponentConfig>");
 		AddLine("{");
-		AddLine($"	public Optional<{entity}> prefab;");
 		AddLine("}");
 	}
 }

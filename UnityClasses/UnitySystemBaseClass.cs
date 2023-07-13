@@ -26,7 +26,8 @@ public class UnitySystemBaseClass : UnityClass
 		AddLine("");
 		AddLine("	public virtual void Init() { }");
 		AddLine("	public virtual void LateSetup() { }");
-		AddLine("	public virtual void Remove() {}");
+		AddLine("	public virtual void Remove() { }");
+		AddLine("	public virtual void ReusedSetup() { }");
 		AddLine("}");
 	}
 }
