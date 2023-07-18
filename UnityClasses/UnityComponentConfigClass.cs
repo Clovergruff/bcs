@@ -6,9 +6,14 @@ public class UnityComponentConfigClass : UnityClass
 
 	protected override void GenerateLines()
 	{
-		AddLine($"public abstract class {entity}ComponentConfig : ConfigScriptableObject");
-		AddLine("{");
-		AddLine($"	public abstract void ConstructSystemComponent({entity} {entity.FirstCharToLower()});");
-		AddLine("}");
+		AddLines(new string[]
+		{
+			"using Gruffdev.BCS;",
+			"",
+			$"public abstract class {entity}ComponentConfig : ConfigScriptableObject",
+			"{",
+			$"	public abstract void ConstructSystemComponent({entity} {entity.FirstCharToLower()});",
+			"}",
+		});
 	}
 }

@@ -14,7 +14,6 @@ public class UnityClass
 	protected string entity = "";
 	protected string prefix = "";
 	protected string component = "";
-	protected bool generateConfig = true;
 	protected bool hasUpdate = true;
 	protected bool hasFixedUpdate = true;
 	protected bool hasLateUpdate = true;
@@ -31,7 +30,6 @@ public class UnityClass
 		string entity = "",
 		string prefix = "has",
 		string component = "",
-		bool generateConfig = true, 
 		bool hasUpdate = true,
 		bool hasFixedUpdate = true,
 		bool hasLateUpdate = true)
@@ -39,7 +37,6 @@ public class UnityClass
 		this.entity = entity;
 		this.prefix = prefix;
 		this.component = component;
-		this.generateConfig = generateConfig;
 		this.hasUpdate = hasUpdate;
 		this.hasFixedUpdate = hasFixedUpdate;
 		this.hasLateUpdate = hasLateUpdate;
@@ -86,6 +83,11 @@ public class UnityClass
 	}
 
 	protected void AddLine(string line) => lines.Add(line);
+	protected void AddLines(string[] newLines)
+	{
+		foreach (var line in newLines)
+			lines.Add(line);
+	}
 
 	private (bool canWrite, bool fileExists) GetFileWriteState(string filePath)
 	{

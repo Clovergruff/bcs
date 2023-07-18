@@ -7,8 +7,6 @@ class Program
 	public static List<string> componentNames = new List<string>();
 	public static string componentPrefix = "has";
 
-	public static bool generateConfig = true;
-	public static bool generateConfigEditor = true;
 	public static bool generateSystem = true;
 
 	public static bool generateUpdateMethods = true;
@@ -82,12 +80,6 @@ class Program
 								forceOverwrite = true;
 								break;
 
-							case "--no-config":
-								generateConfig = false;
-								break;
-							case "--no-configeditor":
-								generateConfigEditor = false;
-								break;
 							case "--no-system":
 								generateSystem = false;
 								break;
@@ -144,17 +136,13 @@ class Program
 		if (!Directory.Exists(editorFolderPath))
 			Directory.CreateDirectory(editorFolderPath);
 
-		if (generateConfig)
-		{
-			Generator.CreateConfigClass(configClassPath, entityName, componentName);
-			if (generateConfigEditor)
-				Generator.CreateComponentConfigEditorClass(editorClassPath, entityName, componentName);
-		}
+		Generator.CreateConfigClass(configClassPath, entityName, componentName);
+		Generator.CreateComponentConfigEditorClass(editorClassPath, entityName, componentName);
 		
 		if (generateSystem)
-			Generator.CreateSystemClass(systemClassPath, entityName, componentName, generateConfig);
+			Generator.CreateSystemClass(systemClassPath, entityName, componentName);
 
-		Generator.CreateExtensionClass(extensionClassPath, entityName, componentPrefix, componentName, generateConfig);
+		Generator.CreateExtensionClass(extensionClassPath, entityName, componentPrefix, componentName);
 		Debug.Log("Done!\n");
 	}
 

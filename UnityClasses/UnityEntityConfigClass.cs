@@ -6,12 +6,15 @@ public class UnityEntityConfigClass : UnityClass
 
 	protected override void GenerateLines()
 	{
-		AddLine("using UnityEngine;");
-		AddLine("");
-
-		AddLine($"[CreateAssetMenu(fileName = \"{entity}\", menuName = \"Data/{entity}/{entity} entity\")]");
-		AddLine($"public class {entity}Config : EntityConfigAsset<{entity}ComponentConfig>");
-		AddLine("{");
-		AddLine("}");
+		AddLines(new string[]
+		{
+			"using UnityEngine;",
+			"using Gruffdev.BCS;",
+			"",
+			$"[CreateAssetMenu(fileName = \"{entity}\", menuName = \"Data/{entity}/{entity} entity\")]",
+			$"public class {entity}Config : EntityConfigAsset<{entity}ComponentConfig>",
+			"{",
+			"}",
+		});
 	}
 }

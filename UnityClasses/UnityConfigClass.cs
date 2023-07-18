@@ -6,17 +6,19 @@ public class UnityConfigClass : UnityClass
 
 	protected override void GenerateLines()
 	{
-		AddLine("using UnityEngine;");
-		AddLine("using System.Collections;");
-		AddLine("");
-
-		AddLine($"[CreateAssetMenu(fileName = \"{component}\", menuName = \"Data/{entity}/{component}\")]");
-		AddLine($"public class {entity}{component}Config : {entity}ComponentConfig");
-		AddLine("{");
-		AddLine($"	public override void ConstructSystemComponent({entity} entityObject)");
-		AddLine("	{");
-		AddLine($"		entityObject.Add{component}(this);");
-		AddLine("	}");
-		AddLine("}");
+		AddLines(new string[]
+		{
+			"using UnityEngine;",
+			"using Gruffdev.BCS;",
+			"",
+			$"[CreateAssetMenu(fileName = \"{component}\", menuName = \"Data/{entity}/{component}\")]",
+			$"public class {entity}{component}Config : {entity}ComponentConfig",
+			"{",
+			$"	public override void ConstructSystemComponent({entity} entityObject)",
+			"	{",
+			$"		entityObject.Add{component}(this);",
+			"	}",
+			"}",
+		});
 	}
 }

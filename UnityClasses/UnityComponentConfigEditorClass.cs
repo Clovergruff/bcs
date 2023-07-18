@@ -6,30 +6,34 @@ public class UnityComponentConfigEditorClass : UnityClass
 
 	protected override void GenerateLines()
 	{
-		AddLine("using UnityEditor;");
-		AddLine("");
-		AddLine($"[CustomEditor(typeof({entity}{component}Config))]");
-		AddLine($"public class {entity}{component}ConfigEditor : EntityComponentEditorBase<{entity}{component}Config>");
-		AddLine("{");
-		AddLine("");
-		AddLine("	protected override void OnEnable()");
-		AddLine("	{");
-		AddLine("		base.OnEnable();");
-		AddLine("	}");
-		AddLine("");
-		AddLine("	public override void OnInspectorGUI()");
-		AddLine("	{");
-		AddLine("		using (var check = new EditorGUI.ChangeCheckScope())");
-		AddLine("		{");
-		AddLine("			base.OnInspectorGUI();");
-		AddLine("			");
-		AddLine("			if (check.changed)");
-		AddLine("			{");
-		AddLine("				EditorUtility.SetDirty(config);");
-		AddLine("				serializedObject.ApplyModifiedProperties();");
-		AddLine("			}");
-		AddLine("		}");
-		AddLine("	}");
-		AddLine("}");
+		AddLines(new string[]
+		{
+			"using UnityEditor;",
+			"using Gruffdev.BCSEditor;",
+			"",
+			$"[CustomEditor(typeof({entity}{component}Config))]",
+			$"public class {entity}{component}ConfigEditor : EntityComponentEditorBase<{entity}{component}Config>",
+			"{",
+			"",
+			"	protected override void OnEnable()",
+			"	{",
+			"		base.OnEnable();",
+			"	}",
+			"",
+			"	public override void OnInspectorGUI()",
+			"	{",
+			"		using (var check = new EditorGUI.ChangeCheckScope())",
+			"		{",
+			"			base.OnInspectorGUI();",
+			"			",
+			"			if (check.changed)",
+			"			{",
+			"				EditorUtility.SetDirty(config);",
+			"				serializedObject.ApplyModifiedProperties();",
+			"			}",
+			"		}",
+			"	}",
+			"}",
+		});
 	}
 }

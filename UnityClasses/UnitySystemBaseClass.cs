@@ -6,28 +6,31 @@ public class UnitySystemBaseClass : UnityClass
 
 	protected override void GenerateLines()
 	{
-		AddLine("using UnityEngine;");
-		AddLine("");
-
-		AddLine($"public class {entity}System<T> : MonoBehaviour, IEntitySystem");
-		AddLine($"	where T : {entity}ComponentConfig");
-		AddLine("{");
-		AddLine($"	public {entity} {lowerCaseEntityName} {"{ get; private set; }"}");
-		AddLine("");
-		AddLine("	[SerializeField] protected T config;");
-		AddLine("");
-		AddLine("	public T Config { get => config; }");
-		AddLine("");
-		AddLine($"	public virtual void Init({entity} {lowerCaseEntityName}, T config)");
-		AddLine("	{");
-		AddLine("		this.config = config;");
-		AddLine($"		this.{lowerCaseEntityName} = {lowerCaseEntityName};");
-		AddLine("	}");
-		AddLine("");
-		AddLine("	public virtual void Init() { }");
-		AddLine("	public virtual void LateSetup() { }");
-		AddLine("	public virtual void Remove() { }");
-		AddLine("	public virtual void ReusedSetup() { }");
-		AddLine("}");
+		AddLines(new string[]
+		{
+			"using UnityEngine;",
+			"using Gruffdev.BCS;",
+			"",
+			$"public class {entity}System<T> : MonoBehaviour, IEntitySystem",
+			$"	where T : {entity}ComponentConfig",
+			"{",
+			$"	public {entity} {lowerCaseEntityName} {"{ get; private set; }"}",
+			"",
+			"	[SerializeField] protected T config;",
+			"",
+			"	public T Config { get => config; }",
+			"",
+			$"	public virtual void Init({entity} {lowerCaseEntityName}, T config)",
+			"	{",
+			"		this.config = config;",
+			$"		this.{lowerCaseEntityName} = {lowerCaseEntityName};",
+			"	}",
+			"",
+			"	public virtual void Init() { }",
+			"	public virtual void LateSetup() { }",
+			"	public virtual void Remove() { }",
+			"	public virtual void ReusedSetup() { }",
+			"}",
+		});
 	}
 }

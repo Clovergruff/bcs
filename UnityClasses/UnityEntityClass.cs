@@ -6,70 +6,88 @@ public class UnityEntityClass : UnityClass
 
 	protected override void GenerateLines()
 	{
-		AddLine("using UnityEngine;");
-		AddLine("");
+		AddLines(new string[]
+		{
+			"using UnityEngine;",
+			"using Gruffdev.BCS;",
+			"",
+			$"[AddComponentMenu(\"{entity}/{entity}\")]",
+			$"public partial class {entity} : MonoBehaviour",
+			"	, IEntity",
+		});
 
-		AddLine($"[AddComponentMenu(\"{entity}/{entity}\")]");
-		AddLine($"public partial class {entity} : MonoBehaviour");
-		AddLine("	, IEntity");
 		if (hasUpdate)
 			AddLine("	, IEntityUpdate");
 		if (hasFixedUpdate)
 			AddLine("	, IEntityFixedUpdate");
 		if (hasLateUpdate)
 			AddLine("	, IEntityLateUpdate");
-		AddLine("{");
-		AddLine($"	public {entity}Config config;");
-		AddLine($"	public IEntitySystem[] allSystems;");
-		AddLine($"	public ISystemUpdate[] updateSystems;");
-		AddLine($"	public ISystemLateUpdate[] lateUpdateSystems;");
-		AddLine($"	public ISystemFixedUpdate[] fixedUpdateSystems;");
-		AddLine("");
-		AddLine($"	public void Init({entity}Config config)");
-		AddLine("	{");
-		AddLine("		this.config = config;");
-		AddLine("	}");
-		AddLine("");
-		AddLine($"	public void FindSystems()");
-		AddLine("	{");
-		AddLine($"		allSystems = gameObject.GetComponents<IEntitySystem>();");
-		AddLine("		updateSystems = gameObject.GetComponents<ISystemUpdate>();");
-		AddLine("		lateUpdateSystems = gameObject.GetComponents<ISystemLateUpdate>();");
-		AddLine("		fixedUpdateSystems = gameObject.GetComponents<ISystemFixedUpdate>();");
-		AddLine("	}");
-		AddLine("");
-		AddLine($"	protected virtual void Awake() => {entity}EntityManager.I.AddEntity(this);");
-		AddLine($"	protected virtual void OnEnable() => {entity}EntityManager.I.EnableEntity(this);");
-		AddLine($"	protected virtual void OnDisable() => {entity}EntityManager.I.DisableEntity(this);");
-		AddLine($"	protected virtual void OnDestroy() => {entity}EntityManager.I.RemoveEntity(this);");
+
+		AddLines(new string[]
+		{
+			"{",
+			$"	public {entity}Config config;",
+			$"	public IEntitySystem[] allSystems;",
+			$"	public IUpdate[] updateSystems;",
+			$"	public ILateUpdate[] lateUpdateSystems;",
+			$"	public IFixedUpdate[] fixedUpdateSystems;",
+			"",
+			$"	public void Init({entity}Config config)",
+			"	{",
+			"		this.config = config;",
+			"	}",
+			"",
+			$"	public void FindSystems()",
+			"	{",
+			$"		allSystems = gameObject.GetComponents<IEntitySystem>();",
+			"		updateSystems = gameObject.GetComponents<IUpdate>();",
+			"		lateUpdateSystems = gameObject.GetComponents<ILateUpdate>();",
+			"		fixedUpdateSystems = gameObject.GetComponents<IFixedUpdate>();",
+			"	}",
+			"",
+			$"	protected virtual void Awake() => {entity}EntityManager.I.AddEntity(this);",
+			$"	protected virtual void OnEnable() => {entity}EntityManager.I.EnableEntity(this);",
+			$"	protected virtual void OnDisable() => {entity}EntityManager.I.DisableEntity(this);",
+			$"	protected virtual void OnDestroy() => {entity}EntityManager.I.RemoveEntity(this);",
+		});
+
 		if (hasUpdate)
 		{
-			AddLine("");
-			AddLine("	public void OnUpdate()");
-			AddLine("	{");
-			AddLine("		for (int i = 0; i < updateSystems.Length; i++)");
-			AddLine("			updateSystems[i].OnUpdate();");
-			AddLine("	}");
+			AddLines(new string[]
+			{
+				"",
+				"	public void OnUpdate()",
+				"	{",
+				"		for (int i = 0; i < updateSystems.Length; i++)",
+				"			updateSystems[i].OnUpdate();",
+				"	}",
+			});
 		}
 
 		if (hasLateUpdate)
 		{
-			AddLine("");
-			AddLine("	public void OnLateUpdate()");
-			AddLine("	{");
-			AddLine("		for (int i = 0; i < lateUpdateSystems.Length; i++)");
-			AddLine("			lateUpdateSystems[i].OnLateUpdate();");
-			AddLine("	}");
+			AddLines(new string[]
+			{
+				"",
+				"	public void OnLateUpdate()",
+				"	{",
+				"		for (int i = 0; i < lateUpdateSystems.Length; i++)",
+				"			lateUpdateSystems[i].OnLateUpdate();",
+				"	}",
+			});
 		}
 
 		if (hasFixedUpdate)
 		{
-			AddLine("");
-			AddLine("	public void OnFixedUpdate()");
-			AddLine("	{");
-			AddLine("		for (int i = 0; i < fixedUpdateSystems.Length; i++)");
-			AddLine("			fixedUpdateSystems[i].OnFixedUpdate();");
-			AddLine("	}");
+			AddLines(new string[]
+			{
+				"",
+				"	public void OnFixedUpdate()",
+				"	{",
+				"		for (int i = 0; i < fixedUpdateSystems.Length; i++)",
+				"			fixedUpdateSystems[i].OnFixedUpdate();",
+				"	}",
+			});
 		}
 		
 		AddLine("}");

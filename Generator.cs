@@ -13,11 +13,11 @@ public static class Generator
 		return !File.Exists(filePath);
 	}
 
-	public static void CreateExtensionClass(string filePath, string entity, string prefix, string component, bool generateConfig) =>
-		new UnityExtensionClass(filePath).Generate(entity: entity, prefix: prefix, component: component, generateConfig: generateConfig);
+	public static void CreateExtensionClass(string filePath, string entity, string prefix, string component) =>
+		new UnityExtensionClass(filePath).Generate(entity: entity, prefix: prefix, component: component);
 
-	public static void CreateSystemClass(string filePath, string entity, string component, bool generateConfig) =>
-		new UnitySystemClass(filePath).Generate(entity: entity, component: component, generateConfig: generateConfig);
+	public static void CreateSystemClass(string filePath, string entity, string component) =>
+		new UnitySystemClass(filePath).Generate(entity: entity, component: component);
 
 	public static void CreateConfigClass(string filePath, string entity, string component) =>
 		new UnityConfigClass(filePath).Generate(entity: entity, component: component);

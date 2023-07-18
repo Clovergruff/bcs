@@ -6,8 +6,13 @@ public class UnityEntityManagerClass : UnityClass
 
 	protected override void GenerateLines()
 	{
-		AddLine($"public class {entity}EntityManager : EntityManager<{entity}>");
-		AddLine("{");
-		AddLine("}");
+		AddLines(new string[]
+		{	
+			"using Gruffdev.BCS;",
+			"",
+			$"public class {entity}EntityManager : EntityManager<{entity}>",
+			"{",
+			"}",
+		});
 	}
 }
