@@ -1,6 +1,6 @@
-public class UnityEntityManagerClass : UnityClass
+public class UnityActorManagerClass : UnityClass
 {
-	public UnityEntityManagerClass(string filePath) : base(filePath)
+	public UnityActorManagerClass(string filePath) : base(filePath)
 	{
 	}
 
@@ -10,7 +10,7 @@ public class UnityEntityManagerClass : UnityClass
 		{	
 			"using Gruffdev.BCS;",
 			"",
-			$"public class {entity}EntityManager : EntityManager<{entity}>",
+			$"public class {actor}ActorManager : ActorManager<{actor}>",
 			"{",
 			"}",
 		});

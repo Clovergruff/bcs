@@ -3,7 +3,7 @@ using System.IO;
 
 class Program
 {
-	public static string entityName = "";
+	public static string actorName = "";
 	public static List<string> componentNames = new List<string>();
 	public static string componentPrefix = "has";
 
@@ -49,8 +49,8 @@ class Program
 
 			entitiesFolder = $"{assetsPath}{sl}Scripts{sl}Entities";
 
-			entityName = args[0];
-			entityName = entityName.FirstCharToUpper();
+			actorName = args[0];
+			actorName = actorName.FirstCharToUpper();
 
 			// Components			
 			if (args.Length > 1)
@@ -101,8 +101,8 @@ class Program
 				}
 			}
 
-			Debug.Log($"Generating {entityName} entity...");
-			GenerateEntityClasses();
+			Debug.Log($"Generating {actorName} actor...");
+			GenerateActorClasses();
 
 			if (componentNames.Count > 0)
 			{
@@ -121,14 +121,14 @@ class Program
 	{
 		Debug.Log($"Generating {componentName}...");
 
-		string folderPath = $"{entitiesFolder}{sl}{entityName}{sl}Components{sl}{componentName}";
+		string folderPath = $"{entitiesFolder}{sl}{actorName}{sl}Components{sl}{componentName}";
 		string editorFolderPath = $"{folderPath}{sl}Editor";
 
-		string configClassPath = $"{folderPath}{sl}{entityName}{componentName}Config.cs";
-		string systemClassPath = $"{folderPath}{sl}{entityName}{componentName}System.cs";
-		string extensionClassPath = $"{folderPath}{sl}{entityName}{componentName}Ext.cs";
+		string configClassPath = $"{folderPath}{sl}{actorName}{componentName}Config.cs";
+		string systemClassPath = $"{folderPath}{sl}{actorName}{componentName}System.cs";
+		string extensionClassPath = $"{folderPath}{sl}{actorName}{componentName}Ext.cs";
 
-		string editorClassPath = $"{editorFolderPath}{sl}{entityName}{componentName}ConfigEditor.cs";
+		string editorClassPath = $"{editorFolderPath}{sl}{actorName}{componentName}ConfigEditor.cs";
 
 		if (!Directory.Exists(folderPath))
 			Directory.CreateDirectory(folderPath);
@@ -136,33 +136,33 @@ class Program
 		if (!Directory.Exists(editorFolderPath))
 			Directory.CreateDirectory(editorFolderPath);
 
-		Generator.CreateConfigClass(configClassPath, entityName, componentName);
-		Generator.CreateComponentConfigEditorClass(editorClassPath, entityName, componentName);
+		Generator.CreateConfigClass(configClassPath, actorName, componentName);
+		Generator.CreateComponentConfigEditorClass(editorClassPath, actorName, componentName);
 		
 		if (generateSystem)
-			Generator.CreateSystemClass(systemClassPath, entityName, componentName);
+			Generator.CreateSystemClass(systemClassPath, actorName, componentName);
 
-		Generator.CreateExtensionClass(extensionClassPath, entityName, componentPrefix, componentName);
+		Generator.CreateExtensionClass(extensionClassPath, actorName, componentPrefix, componentName);
 		Debug.Log("Done!\n");
 	}
 
-	public static void GenerateEntityClasses()
+	public static void GenerateActorClasses()
 	{
 
-		string entityFolderPath = $"{entitiesFolder}{sl}{entityName}";
-		string componentsFolderPath = $"{entityFolderPath}{sl}Components";
-		string editorFolderPath = $"{entityFolderPath}{sl}Editor";
+		string actorFolderPath = $"{entitiesFolder}{sl}{actorName}";
+		string componentsFolderPath = $"{actorFolderPath}{sl}Components";
+		string editorFolderPath = $"{actorFolderPath}{sl}Editor";
 
-		string entityBase = $"{entityFolderPath}{sl}{entityName}";
+		string actorBase = $"{actorFolderPath}{sl}{actorName}";
 
-		string mainClassPath = 				$"{entityBase}.cs";
-		string baseComponentConfigPath = 	$"{entityBase}ComponentConfig.cs";
-		string entityConfigClassPath = 		$"{entityBase}Config.cs";
-		string managerClassPath = 			$"{entityBase}EntityManager.cs";
-		string factoryClassPath = 			$"{entityBase}Factory.cs";
-		string baseSystemClassPath = 		$"{entityBase}System.cs";
+		string mainClassPath = 				$"{actorBase}.cs";
+		string baseComponentConfigPath = 	$"{actorBase}ComponentConfig.cs";
+		string actorConfigClassPath = 		$"{actorBase}Config.cs";
+		string managerClassPath = 			$"{actorBase}ActorManager.cs";
+		string factoryClassPath = 			$"{actorBase}Factory.cs";
+		string baseSystemClassPath = 		$"{actorBase}System.cs";
 
-		string entityConfigEditorClassPath = 	$"{editorFolderPath}{sl}{entityName}ConfigEditor.cs";
+		string actorConfigEditorClassPath = 	$"{editorFolderPath}{sl}{actorName}ConfigEditor.cs";
 
 		if (!Directory.Exists(componentsFolderPath))
 			Directory.CreateDirectory(componentsFolderPath);
@@ -170,13 +170,13 @@ class Program
 		if (!Directory.Exists(editorFolderPath))
 			Directory.CreateDirectory(editorFolderPath);
 
-		Generator.CreateMainEntityClass(mainClassPath, entityName, generateUpdateMethods, generateFixedUpdateMethods, generateLateUpdateMethods);
-		Generator.CreateComponentConfigClass(baseComponentConfigPath, entityName);
-		Generator.CreateEntityConfigClass(entityConfigClassPath, entityName);
-		Generator.CreateEntityManagerClass(managerClassPath, entityName);
-		Generator.CreateEntityFactoryClass(factoryClassPath, entityName);
-		Generator.CreateSystemBaseClass(baseSystemClassPath, entityName, generateUpdateMethods, generateFixedUpdateMethods, generateLateUpdateMethods);
-		Generator.CreateEntityConfigEditorClass(entityConfigEditorClassPath, entityName);
+		Generator.CreateMainActorClass(mainClassPath, actorName, generateUpdateMethods, generateFixedUpdateMethods, generateLateUpdateMethods);
+		Generator.CreateComponentConfigClass(baseComponentConfigPath, actorName);
+		Generator.CreateActorConfigClass(actorConfigClassPath, actorName);
+		Generator.CreateActorManagerClass(managerClassPath, actorName);
+		Generator.CreateActorFactoryClass(factoryClassPath, actorName);
+		Generator.CreateSystemBaseClass(baseSystemClassPath, actorName, generateUpdateMethods, generateFixedUpdateMethods, generateLateUpdateMethods);
+		Generator.CreateActorConfigEditorClass(actorConfigEditorClassPath, actorName);
 
 		Debug.Log("Done!\n");
 	}

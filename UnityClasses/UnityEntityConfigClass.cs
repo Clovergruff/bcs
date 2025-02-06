@@ -1,6 +1,6 @@
-public class UnityEntityConfigClass : UnityClass
+public class UnityActorConfigClass : UnityClass
 {
-	public UnityEntityConfigClass(string filePath) : base(filePath)
+	public UnityActorConfigClass(string filePath) : base(filePath)
 	{
 	}
 
@@ -11,8 +11,8 @@ public class UnityEntityConfigClass : UnityClass
 			"using UnityEngine;",
 			"using Gruffdev.BCS;",
 			"",
-			$"[CreateAssetMenu(fileName = \"{entity}\", menuName = \"Data/{entity}/{entity} entity\")]",
-			$"public class {entity}Config : EntityConfigAsset<{entity}ComponentConfig>",
+			$"[CreateAssetMenu(fileName = \"{actor}\", menuName = \"Data/{actor}/{actor} actor\")]",
+			$"public class {actor}Config : ActorConfigAsset<{actor}ComponentConfig>",
 			"{",
 			"}",
 		});

@@ -1,6 +1,6 @@
-public class UnityEntityClass : UnityClass
+public class UnityActorClass : UnityClass
 {
-	public UnityEntityClass(string filePath) : base(filePath)
+	public UnityActorClass(string filePath) : base(filePath)
 	{
 	}
 
@@ -11,39 +11,39 @@ public class UnityEntityClass : UnityClass
 			"using UnityEngine;",
 			"using Gruffdev.BCS;",
 			"",
-			$"[AddComponentMenu(\"{entity}/{entity}\")]",
-			$"public partial class {entity} : MonoBehaviour",
-			"	, IEntity",
+			$"[AddComponentMenu(\"{actor}/{actor}\")]",
+			$"public partial class {actor} : MonoBehaviour",
+			"	, IActor",
 		});
 
 		if (hasUpdate)
-			AddLine("	, IEntityUpdate");
+			AddLine("	, IActorUpdate");
 		if (hasFixedUpdate)
-			AddLine("	, IEntityFixedUpdate");
+			AddLine("	, IActorFixedUpdate");
 		if (hasLateUpdate)
-			AddLine("	, IEntityLateUpdate");
+			AddLine("	, IActorLateUpdate");
 
 		AddLines(new string[]
 		{
 			"{",
-			$"	public {entity}Config config;",
-			$"	public IEntitySystem[] allSystems;",
+			$"	public {actor}Config config;",
+			$"	public IActorSystem[] allSystems;",
 			$"	public IUpdate[] updateSystems;",
 			$"	public ILateUpdate[] lateUpdateSystems;",
 			$"	public IFixedUpdate[] fixedUpdateSystems;",
 			"",
 			$"	public void FindSystems()",
 			"	{",
-			$"		allSystems = gameObject.GetComponents<IEntitySystem>();",
+			$"		allSystems = gameObject.GetComponents<IActorSystem>();",
 			"		updateSystems = gameObject.GetComponents<IUpdate>();",
 			"		lateUpdateSystems = gameObject.GetComponents<ILateUpdate>();",
 			"		fixedUpdateSystems = gameObject.GetComponents<IFixedUpdate>();",
 			"	}",
 			"",
-			$"	protected virtual void Awake() => {entity}EntityManager.I.AddEntity(this);",
-			$"	protected virtual void OnEnable() => {entity}EntityManager.I.EnableEntity(this);",
-			$"	protected virtual void OnDisable() => {entity}EntityManager.I.DisableEntity(this);",
-			$"	protected virtual void OnDestroy() => {entity}EntityManager.I.RemoveEntity(this);",
+			$"	protected virtual void Awake() => {actor}ActorManager.I.Add(this);",
+			$"	protected virtual void OnEnable() => {actor}ActorManager.I.Enable(this);",
+			$"	protected virtual void OnDisable() => {actor}ActorManager.I.Disable(this);",
+			$"	protected virtual void OnDestroy() => {actor}ActorManager.I.Remove(this);",
 		});
 
 		if (hasUpdate)

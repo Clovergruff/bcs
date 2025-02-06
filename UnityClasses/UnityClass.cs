@@ -9,9 +9,9 @@ public class UnityClass
 	protected string filePath = "";
 	protected string filename = "";
 	protected string lowerCaseComponentName = "";
-	protected string lowerCaseEntityName = "";
+	protected string lowerCaseActorName = "";
 
-	protected string entity = "";
+	protected string actor = "";
 	protected string prefix = "";
 	protected string component = "";
 	protected bool hasUpdate = true;
@@ -27,14 +27,14 @@ public class UnityClass
 	}
 
 	public void Generate(
-		string entity = "",
+		string actor = "",
 		string prefix = "has",
 		string component = "",
 		bool hasUpdate = true,
 		bool hasFixedUpdate = true,
 		bool hasLateUpdate = true)
 	{
-		this.entity = entity;
+		this.actor = actor;
 		this.prefix = prefix;
 		this.component = component;
 		this.hasUpdate = hasUpdate;
@@ -42,7 +42,7 @@ public class UnityClass
 		this.hasLateUpdate = hasLateUpdate;
 
 		lowerCaseComponentName = component.FirstCharToLower();
-		lowerCaseEntityName = entity.FirstCharToLower();
+		lowerCaseActorName = actor.FirstCharToLower();
 
 		GenerateLines();
 		WriteFile();

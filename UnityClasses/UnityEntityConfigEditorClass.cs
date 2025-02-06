@@ -1,6 +1,6 @@
-public class UnityEntityConfigEditorClass : UnityClass
+public class UnityActorConfigEditorClass : UnityClass
 {
-	public UnityEntityConfigEditorClass(string filePath) : base(filePath)
+	public UnityActorConfigEditorClass(string filePath) : base(filePath)
 	{
 	}
 
@@ -11,8 +11,8 @@ public class UnityEntityConfigEditorClass : UnityClass
 			"using UnityEditor;",
 			"using Gruffdev.BCSEditor;",
 			"",
-			$"[CustomEditor(typeof({entity}Config))]",
-			$"public class {entity}ConfigEditor : EntityConfigAssetEditorBase<{entity}ComponentConfig, {entity}Config>",
+			$"[CustomEditor(typeof({actor}Config))]",
+			$"public class {actor}ConfigEditor : ActorConfigAssetEditorBase<{actor}ComponentConfig, {actor}Config>",
 			"{",
 			"	protected override void OnEnable()",
 			"	{",
@@ -27,7 +27,7 @@ public class UnityEntityConfigEditorClass : UnityClass
 			"",
 			"			if (check.changed)",
 			"			{",
-			"				EditorUtility.SetDirty(entityConfigAsset);",
+			"				EditorUtility.SetDirty(actorConfigAsset);",
 			"				serializedObject.ApplyModifiedProperties();",
 			"			}",
 			"		}",

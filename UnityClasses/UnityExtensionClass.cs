@@ -6,9 +6,9 @@ public class UnityExtensionClass : UnityClass
 
 	protected override void GenerateLines()
 	{
-		string hasComponentVariable = $"{prefix}{component}";
-		string systemVariable = $"{lowerCaseComponentName}";
-		string configVariable = $"{lowerCaseComponentName}Config";
+		string hasComponentVariable = $"{prefix.FirstCharToUpper()}{component}";
+		string systemVariable = $"{component}";
+		string configVariable = $"{component}Config";
 
 		string privateSetter = "{ private set; get; }";
 
@@ -16,22 +16,28 @@ public class UnityExtensionClass : UnityClass
 		{
 			"using UnityEngine;",
 			"using Gruffdev.BCS;",
+			"using System;",
 			"",
-			$"public partial class {entity} : MonoBehaviour, IEntity",
+			$"public partial class {actor} : MonoBehaviour, IActor",
 			"{",
 			$"	public bool {hasComponentVariable} {privateSetter}",
-			$"	public {entity}{component}System {systemVariable} {privateSetter}",
-			$"	public {entity}{component}Config {configVariable} {privateSetter}",
+			$"	public {actor}{component}System {systemVariable} {privateSetter}",
+			$"	public {actor}{component}Config {configVariable} {privateSetter}",
 			"	",
-			$"	public {entity}{component}System Add{component}({entity}{component}Config config)",
+			$"	public event Action<{actor}{component}System> On{component}Added;",
+			$"	public event Action<{actor}{component}System> On{component}Removed;",
+			"	",
+			$"	public {actor}{component}System Add{component}({actor}{component}Config config)",
 			"	{",
 			$"		if ({hasComponentVariable})",
 			$"			Destroy({systemVariable});",
 			"		",
-			$"		{systemVariable} = gameObject.AddComponent<{entity}{component}System>();",
+			$"		{systemVariable} = gameObject.AddComponent<{actor}{component}System>();",
 			$"		{configVariable} = config;",
 			$"		{systemVariable}.Init(this, config);",
 			$"		{hasComponentVariable} = true;",
+			$"		On{component}Added?.Invoke({systemVariable});",
+			"		",
 			$"		return {systemVariable};",
 			"	}",
 			"	",
@@ -40,6 +46,7 @@ public class UnityExtensionClass : UnityClass
 			$"		if (!{hasComponentVariable})",
 			"			return;",
 			"	",
+			$"		On{component}Removed?.Invoke({systemVariable});",
 			$"		{systemVariable}.Remove();",
 			$"		Destroy({systemVariable});",
 			"	",

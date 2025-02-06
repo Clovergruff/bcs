@@ -10,9 +10,9 @@ public class UnityComponentConfigClass : UnityClass
 		{
 			"using Gruffdev.BCS;",
 			"",
-			$"public abstract class {entity}ComponentConfig : ConfigScriptableObject",
+			$"public abstract class {actor}ComponentConfig : ConfigScriptableObject",
 			"{",
-			$"	public abstract void ConstructSystemComponent({entity} {entity.FirstCharToLower()});",
+			$"	public abstract void ConstructSystemComponent({actor} {actor.FirstCharToLower()});",
 			"}",
 		});
 	}
