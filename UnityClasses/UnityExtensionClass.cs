@@ -68,8 +68,16 @@ public class UnityExtensionClass : UnityClass
 			$"		On{component}Removed += action;",
 			"	}",
 			"",
-			$"	public void Remove{component}AddedListener(Action action) => On{component}Added -= action;",
-			$"	public void Remove{component}RemovedListener(Action action) => On{component}Removed -= action;",
+			$"	public bool Remove{component}AddedListener(Action action)",
+			"	{",
+			$"		On{component}Added -= action;",
+			$"		return {hasComponentVariable};",
+			"	}",
+			$"	public bool Remove{component}RemovedListener(Action action)",
+			"	{",
+			$"		On{component}Removed -= action;",
+			$"		return {hasComponentVariable};",
+			"	}",
 			"}",
 		});
 	}

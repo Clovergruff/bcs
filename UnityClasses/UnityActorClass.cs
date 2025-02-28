@@ -40,10 +40,10 @@ public class UnityActorClass : UnityClass
 			"		fixedUpdateSystems = gameObject.GetComponents<IFixedUpdate>();",
 			"	}",
 			"",
-			$"	protected virtual void Awake() => {actor}ActorManager.I.Add(this);",
-			$"	protected virtual void OnEnable() => {actor}ActorManager.I.Enable(this);",
-			$"	protected virtual void OnDisable() => {actor}ActorManager.I.Disable(this);",
-			$"	protected virtual void OnDestroy() => {actor}ActorManager.I.Remove(this);",
+			$"	protected virtual void Awake() => {actor}ActorManager.Instance.Add(this);",
+			$"	protected virtual void OnEnable() => {actor}ActorManager.Instance.Enable(this);",
+			$"	protected virtual void OnDisable() => {actor}ActorManager.Instance.Disable(this);",
+			$"	protected virtual void OnDestroy() => {actor}ActorManager.Instance.Remove(this);",
 		});
 
 		if (hasUpdate)
