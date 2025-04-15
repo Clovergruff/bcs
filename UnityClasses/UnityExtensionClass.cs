@@ -30,7 +30,7 @@ public class UnityExtensionClass : UnityClass
 			$"	public {actor}{component}System Add{component}({actor}{component}Config config)",
 			"	{",
 			$"		if ({hasComponentVariable})",
-			$"			Destroy({systemVariable});",
+			$"			return {systemVariable};",
 			"		",
 			$"		{systemVariable} = gameObject.AddComponent<{actor}{component}System>();",
 			$"		{configVariable} = config;",
